@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common'
+import Ret from '../../common/utils/ret'
 import { UserService } from './user.service'
 
 @Controller('api/user')
@@ -7,6 +8,6 @@ export class UserController {
 
   @Get()
   findAll() {
-    return this.userSerive.findAll()
+    return Ret.ok(this.userSerive.findAll())
   }
 }

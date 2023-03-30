@@ -8,7 +8,7 @@ export class ResponseInterceptor implements NestInterceptor {
     const req = context.getArgByIndex(1).req
 
     return next.handle().pipe(
-      map((data) => {
+      map((res) => {
         const logFormat = {
           httpType: 'Response',
           ip: req.headers?.remoteip ? String(req.headers.remoteip) : req.ip.split(':').pop(),
@@ -22,11 +22,7 @@ export class ResponseInterceptor implements NestInterceptor {
 
         Logger.access(JSON.stringify(logFormat))
 
-        return {
-          code: 0,
-          data,
-          message: null,
-        }
+        return res
       })
     )
   }

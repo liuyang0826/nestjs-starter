@@ -1,5 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common'
 import { Logger } from '../utils/log4js'
+import Ret from '../utils/ret'
 
 @Catch()
 export class AnyExceptionFilter implements ExceptionFilter {
@@ -29,11 +30,7 @@ export class AnyExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       response.status(status).send(exception.message)
     } else {
-      response.status(status).json({
-        data: null,
-        code: -1,
-        message: '服务器内部错误',
-      })
+      response.status(status).json(Ret.fail())
     }
   }
 }
